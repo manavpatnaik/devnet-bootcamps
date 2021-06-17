@@ -1,0 +1,20 @@
+{
+  "name": "devnet",
+  "version": "1.0.0",
+  "description": "Backend API for Devnet Bootcamps",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "NODE_ENV=development nodemon server"
+  },
+  "author": "Manav Patnaik <dev.manavpatnaik@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
