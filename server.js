@@ -1,9 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
+const connectDB = require('./config/db');
 
 // Load Environment
 dotenv.config();
+
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 
