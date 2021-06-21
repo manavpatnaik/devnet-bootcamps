@@ -22,8 +22,9 @@ app.get('/', (req, res) => {
 
 // Mounting Routers
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
+app.use('/api/v1/courses', require('./routes/courses'));
 
-// Error handling middleware 
+// Error handling middleware
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
