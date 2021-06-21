@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 
 // Load Environment
 dotenv.config();
@@ -21,6 +22,9 @@ app.get('/', (req, res) => {
 
 // Mounting Routers
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
+
+// Error handling middleware 
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, console.log(`Listening on PORT: ${PORT}`.blue));
