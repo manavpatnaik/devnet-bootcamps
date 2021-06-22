@@ -145,6 +145,16 @@ exports.uploadBootcampImage = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Bootcamp with id: ${req.params.id} not found`, 400)
     );
 
+  // Make sure user is the one who created the bootcamp
+  if (req.user.id !== bootcamp.user.toString() && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `User: ${req.user.id} is not authorized to update this bootcamp`,
+        401
+      )
+    );
+  }
+
   if (!req.files) return next(new ErrorResponse('Please upload a file', 400));
   const file = req.files.image;
 
