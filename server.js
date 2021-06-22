@@ -5,6 +5,7 @@ const colors = require('colors');
 const fileupload = require('express-fileupload');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
+const cookieParser = require('cookie-parser');
 
 // Load Environment
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(fileupload());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to Devnet!');
