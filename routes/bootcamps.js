@@ -10,6 +10,7 @@ const {
 } = require('../controllers/bootcamps');
 const Bootcamp = require('../models/Bootcamp');
 const advancedResults = require('../middleware/advancedResults');
+const { protect } = require('../middleware/auth');
 
 // Include other resource routers
 const courseRouter = require('./courses');
@@ -24,12 +25,12 @@ router
     advancedResults(Bootcamp, { path: 'courses', select: 'title' }),
     getBootcamps
   )
-  .post(createBootcamp);
+  .post(protect, createBootcamp);
 router
   .route('/:id')
   .get(getBootcamp)
-  .put(updateBootcamp)
-  .delete(deleteBootcamp);
-router.route('/:id/image').put(uploadBootcampImage);
+  .put(protect, updateBootcamp)
+  .delete(protect, deleteBootcamp);
+router.route('/:id/image').put(protect, uploadBootcampImage);
 
 module.exports = router;
