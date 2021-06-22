@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 // Mounting Routers
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
 app.use('/api/v1/courses', require('./routes/courses'));
+app.use('/api/v1/auth', require('./routes/auth'));
 
 // Error handling middleware
 app.use(errorHandler);
