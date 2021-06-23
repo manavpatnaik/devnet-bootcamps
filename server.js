@@ -48,10 +48,6 @@ app.use(limiter);
 // Prevent HTTP Parameter Pollution
 app.use(hpp());
 
-app.get('/', (req, res) => {
-  res.status(200).send('Welcome to Devnet!');
-});
-
 // Mounting Routers
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
 app.use('/api/v1/courses', require('./routes/courses'));
