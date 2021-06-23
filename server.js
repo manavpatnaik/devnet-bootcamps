@@ -2,11 +2,13 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
-const fileupload = require('express-fileupload');
-const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
+const connectDB = require('./config/db');
+const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
 
 // Load Environment
 dotenv.config();
@@ -25,6 +27,12 @@ app.use(cookieParser());
 
 // Sanitize data - prevent NoSQL ijections
 app.use(mongoSanitize());
+
+// Headers for security
+app.use(helmet());
+
+// Prevent XSS
+app.use(xss());
 
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to Devnet!');
