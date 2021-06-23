@@ -6,6 +6,7 @@ const fileupload = require('express-fileupload');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // Load Environment
 dotenv.config();
@@ -21,6 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(fileupload());
 app.use(cookieParser());
+
+// Sanitize data - prevent NoSQL ijections
+app.use(mongoSanitize());
 
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to Devnet!');
