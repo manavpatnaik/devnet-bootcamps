@@ -2,13 +2,15 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
-const errorHandler = require('./middleware/error');
-const connectDB = require('./config/db');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('xss-clean');
+const hpp = require('hpp');
+const rateLimit = require('express-rate-limit');
+const errorHandler = require('./middleware/error');
+const connectDB = require('./config/db');
 
 // Load Environment
 dotenv.config();
@@ -33,6 +35,16 @@ app.use(helmet());
 
 // Prevent XSS
 app.use(xss());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100,
+});
+app.use(limiter);
+
+// Prevent HTTP Parameter Pollution
+app.use(hpp());
 
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to Devnet!');
