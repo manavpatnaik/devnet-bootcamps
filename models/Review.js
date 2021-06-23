@@ -34,6 +34,9 @@ const ReviewSchema = new mongoose.Schema({
   },
 });
 
+// One user => one review per bootcamp
+ReviewSchema.index({ bootcamp: 1, user: 1 }, { unique: true });
+
 const Review = mongoose.model('Review', ReviewSchema);
 
 module.exports = Review;
