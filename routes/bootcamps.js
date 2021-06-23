@@ -14,9 +14,11 @@ const { protect, authorize } = require('../middleware/auth');
 
 // Include other resource routers
 const courseRouter = require('./courses');
+const reviewRouter = require('./reviews');
 
 // Re-route to other resource routes
 router.use('/:bootcampId/courses', courseRouter);
+router.use('/:bootcampId/reviews', reviewRouter);
 
 router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius);
 router
@@ -29,8 +31,10 @@ router
 router
   .route('/:id')
   .get(getBootcamp)
-  .put(protect, authorize('publisher', 'admin'),updateBootcamp)
-  .delete(protect, authorize('publisher', 'admin'),deleteBootcamp);
-router.route('/:id/image').put(protect,authorize('publisher', 'admin'), uploadBootcampImage);
+  .put(protect, authorize('publisher', 'admin'), updateBootcamp)
+  .delete(protect, authorize('publisher', 'admin'), deleteBootcamp);
+router
+  .route('/:id/image')
+  .put(protect, authorize('publisher', 'admin'), uploadBootcampImage);
 
 module.exports = router;

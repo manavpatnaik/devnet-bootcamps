@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
 app.use('/api/v1/courses', require('./routes/courses'));
 app.use('/api/v1/auth', require('./routes/auth'));
+app.use('/api/v1/reviews', require('./routes/reviews'));
 
 // Error handling middleware
 app.use(errorHandler);
